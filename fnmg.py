@@ -22,12 +22,15 @@ diffCToAB = 20
 
 # Get's the nearest solution for a given range for the base and given exponent
 def getNearestSolution(minB, maxB, n):
-    nA = 0
-    nB = 0
-    nC = 0
-    nN = 0
-    nMiss = 1
+    nearestSolution = {
+        'a': 0,
+        'b': 0,
+        'c': 0,
+        'n': 0,
+        'miss': 1
+    }
 
+    nMiss = 1
     for a in range(minB, maxB + 1):
         for b in range(a, maxB + 1):
             cExact = math.pow(math.pow(a, n) + math.pow(b, n), 1.0 / n)
@@ -42,10 +45,14 @@ def getNearestSolution(minB, maxB, n):
                 c = int(math.floor(cExact))
 
                 if c > b + diffCToAB and c > a + diffCToAB:
-                    nA = a
-                    nB = b
-                    nC = int(math.floor(cExact))
-                    nN = n
+                    nearestSolution = {
+                        'a': a,
+                        'b': b,
+                        'c': int(math.floor(cExact)),
+                        'n': n,
+                        'miss': miss
+                    }
+
                     nMiss = miss
                     pass
 
@@ -55,7 +62,7 @@ def getNearestSolution(minB, maxB, n):
 
         pass
 
-    return (nA, nB, nC, nN, nMiss)
+    return nearestSolution
 
 solutions = []
 for iteration in range(0, iterations):
