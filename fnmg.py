@@ -9,6 +9,7 @@ import json
 startNumber = 1000
 stepSize = 1000
 searchSize = 3000
+maxMiss = 1e-08
 iterations = 20
 
 # Min/max number 'n'
@@ -68,7 +69,11 @@ for iteration in range(0, iterations):
         print("Nearest solution for the bases between " + str(minB) + " and " +
               str(maxB) + " and the exponent " + str(n) + " => " +
               str(solution))
-        solutions.append(solution)
+
+        if solution['miss'] < maxMiss:
+            solutions.append(solution)
+            pass
+
         pass
 
     pass
